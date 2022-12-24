@@ -36,12 +36,43 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getTeams();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigoAccent,
         title: const Text('NBA Teams'),
         centerTitle: true,
+      ),
+      body: FutureBuilder(
+        future: getTeams(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('An error occurred fetching data'),
+            );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: SizedBox(
+                width: 40,
+                child: LinearProgressIndicator(
+                  backgroundColor: Colors.white70,
+                  color: Colors.indigoAccent,
+                ),
+              ),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: teams.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(teams[index].abbreviation),
+                  onTap: () {
+                    print(teams[index].id);
+                  },
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
