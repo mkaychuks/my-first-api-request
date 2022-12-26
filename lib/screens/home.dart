@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:nda_api/screens/details_screen.dart';
 
 import '../model/teams.dart';
 
@@ -66,7 +67,13 @@ class Home extends StatelessWidget {
                 return ListTile(
                   title: Text(teams[index].abbreviation),
                   onTap: () {
-                    print(teams[index].id);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DetailsScreen(team: teams[index]);
+                        },
+                      ),
+                    );
                   },
                 );
               },
