@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 245, 229, 229),
+      backgroundColor: const Color.fromARGB(255, 245, 229, 229),
       appBar: AppBar(
         backgroundColor: Colors.indigo,
         title: const Text('NBA Teams'),
@@ -67,12 +67,10 @@ class Home extends StatelessWidget {
               itemCount: teams.length,
               itemBuilder: (context, index) {
                 return Container(
-                  // padding: const EdgeInsets.all(8.0),
                   margin: const EdgeInsets.symmetric(vertical: 4.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
-                    // border: Border.all(color: Colors.grey, width: 0.5),
                   ),
                   child: ListTile(
                     title: Text(teams[index].fullName, style: const TextStyle(fontWeight: FontWeight.w500),),
