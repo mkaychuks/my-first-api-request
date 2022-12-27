@@ -11,7 +11,7 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: Colors.indigo,
         title: Text(team.fullName),
         centerTitle: true,
       ),

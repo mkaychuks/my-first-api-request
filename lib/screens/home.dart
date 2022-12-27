@@ -77,6 +77,7 @@ class Home extends StatelessWidget {
                   child: ListTile(
                     title: Text(teams[index].fullName, style: const TextStyle(fontWeight: FontWeight.w500),),
                     subtitle: Text(teams[index].abbreviation, style: const TextStyle(fontWeight: FontWeight.w500),),
+                    trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
