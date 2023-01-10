@@ -43,6 +43,17 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.indigo,
         title: const Text('NBA Teams'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: MySearch(),
+              );
+            },
+            icon: const Icon(Icons.search),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: getTeams(),
@@ -73,8 +84,14 @@ class Home extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: ListTile(
-                    title: Text(teams[index].fullName, style: const TextStyle(fontWeight: FontWeight.w500),),
-                    subtitle: Text(teams[index].abbreviation, style: const TextStyle(fontWeight: FontWeight.w500),),
+                    title: Text(
+                      teams[index].fullName,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    subtitle: Text(
+                      teams[index].abbreviation,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.of(context).push(
@@ -93,5 +110,31 @@ class Home extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class MySearch extends SearchDelegate<String> {
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    // TODO: implement buildActions
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    // TODO: implement buildLeading
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    throw UnimplementedError();
   }
 }
