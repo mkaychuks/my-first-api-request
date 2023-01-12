@@ -145,14 +145,10 @@ class MySearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final queryLength = query.length;
-    final result = recentTeams.first.id;
-    if (queryLength == result) {
-      return DetailsScreen(team: recentTeams[result]);
-    }
-    return const Center(
-      child: Text('Cannot be found'),
-    );
+    var result = recentTeams.where((element) =>
+        element.fullName.toLowerCase().contains(query.toLowerCase()));
+    var index = result.first;
+    return DetailsScreen(team: index);
   }
 
   @override
@@ -166,6 +162,15 @@ class MySearch extends SearchDelegate<String> {
       itemCount: suggestionList.length,
       itemBuilder: (context, index) => ListTile(
         title: Text(suggestionList[index].fullName),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return DetailsScreen(team: suggestionList[index]);
+              },
+            ),
+          );
+        },
       ),
     );
   }
