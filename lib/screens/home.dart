@@ -7,10 +7,12 @@ import 'package:nda_api/screens/details_screen.dart';
 
 import '../model/teams.dart';
 
+final List<Teams> teams = [];
+
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  final List<Teams> teams = [];
+  // final List<Teams> teams = [];
 
   // get the total number of teams
   Future getTeams() async {
@@ -113,28 +115,58 @@ class Home extends StatelessWidget {
   }
 }
 
+final recentTeams = [...teams];
+
 class MySearch extends SearchDelegate<String> {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    throw UnimplementedError();
+    // actions for app bar
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = "";
+        },
+      ),
+    ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
+    // leading icon on the left of the appbar
+    return IconButton(
+      onPressed: () {
+        close(context, "");
+      },
+      icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
+    );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
+    final queryLength = query.length;
+    final result = recentTeams.first.id;
+    if (queryLength == result) {
+      return DetailsScreen(team: recentTeams[result]);
+    }
+    return const Center(
+      child: Text('Cannot be found'),
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
+    final suggestionList = query.isEmpty
+        ? recentTeams
+        : recentTeams
+            .where((element) => element.fullName.startsWith(query))
+            .toList();
+    return ListView.builder(
+      itemCount: suggestionList.length,
+      itemBuilder: (context, index) => ListTile(
+        title: Text(suggestionList[index].fullName),
+      ),
+    );
   }
 }
